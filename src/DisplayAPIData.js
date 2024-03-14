@@ -35,7 +35,6 @@ const DisplayAPIData = () => {
       {error && <p>Error: {error.message}</p>}
       {jsonData && (
         jsonData.map(jsonDataElement => (
-          //<pre>{jsonDataElement.total}</pre>
           <DisplayAPIDataElement key={jsonDataElement.author.login} data={jsonDataElement} />
         ))
       )}
