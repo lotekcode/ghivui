@@ -1,13 +1,19 @@
 import React from 'react';
 
 const DisplayAPIDataElement = ({ data }) => {
-  const { total, author } = data;
+  const { total, author, weeks } = data;
+  const totalLinesAdded = weeks.reduce((sum, week) => sum + week.a, 0);
+  const totalLinesDeleted = weeks.reduce((sum, week) => sum + week.d, 0);
+
 
   return (
     <div>
-      <p>Author {author.login} has made {total} commits</p>
+      <p>Author {author.login} has made: <br />
+      {total} commits<br />
+      {totalLinesAdded} lines added <br />
+      {totalLinesDeleted} lines deleted</p>
       <ul>
-        {data.weeks.map(week => (
+        {weeks.map(week => (
             <li>week: {week.w} added: {week.a} deleted: {week.d} commits: {week.c}</li>
         ))}
       </ul>
