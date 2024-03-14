@@ -6,6 +6,8 @@ const DisplayAPIDataElement = ({ data }) => {
   const totalLinesAdded = weeks.reduce((sum, week) => sum + week.a, 0);
   const totalLinesDeleted = weeks.reduce((sum, week) => sum + week.d, 0);
   const totalWeeks = weeks.length;
+  const startingWeek = weeks[0].w;
+  const endingWeek = weeks[weeks.length - 1].w;
 
 
   return (
@@ -14,7 +16,7 @@ const DisplayAPIDataElement = ({ data }) => {
         {totalCommits} commits<br />
         {totalLinesAdded} lines added <br />
         {totalLinesDeleted} lines deleted<br />
-        over {totalWeeks} weeks
+        over {totalWeeks} weeks from {startingWeek} through {endingWeek}
       </p>
       <ul>
         {weeks.map(week => (
