@@ -36,8 +36,8 @@ const GithubRepoSearch = ({ setGithubOwner, setGithubRepo }) => {
             size="40"
             required
           />
-        </label><br />
-        <button type="submit">Create Reports</button>
+        </label>
+        <button type="submit">List Reports</button>
       </form>
     </div>
   );
