@@ -28,7 +28,7 @@ const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
     };
 
     fetchData();
-  }, []);
+  }, [githubRepo]);
 
   return ( 
     <div>
