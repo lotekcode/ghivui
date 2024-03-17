@@ -16,7 +16,7 @@ const GithubRepoReportList = ({ githubOwner, githubRepo, setGithubReport }) => {
     
   return (
     <div>
-        Report List: <br />
+        Report List for {githubOwner}/{githubRepo}: <br />
         <ul>
         {
           GITHUB_REPORT_LIST.map( (report) => (
