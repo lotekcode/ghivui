@@ -20,7 +20,7 @@ const DisplayAPIDataElement = ({ data }) => {
       </p>
       <ul>
         {weeks.map(week => (
-            week.c != 0 && <li>week: {week.w} added: {week.a} deleted: {week.d} commits: {week.c}</li>
+            week.c !== 0 && <li>week: {week.w} added: {week.a} deleted: {week.d} commits: {week.c}</li>
         ))}
       </ul>
     </div>

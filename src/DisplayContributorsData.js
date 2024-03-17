@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DisplayAPIDataElement from './DisplayAPIDataElement';
+import DisplayContributorsDataElement from './DisplayContributorsDataElement';
 
-const DisplayAPIData = () => {
+const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
   const [jsonData, setJsonData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,8 @@ const DisplayAPIData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.github.com/repos/atherosai/ui/stats/contributors', {
+        const axiosGetUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
+        const response = await axios.get(axiosGetUrl, {
           headers: {
             'Accept': 'application/vnd.github+json',
             'X-GitHub-Api-Version': '2022-11-28'
@@ -35,11 +36,11 @@ const DisplayAPIData = () => {
       {error && <p>Error: {error.message}</p>}
       {jsonData && (
         jsonData.map(jsonDataElement => (
-          <DisplayAPIDataElement key={jsonDataElement.author.login} data={jsonDataElement} />
+          <DisplayContributorsDataElement key={jsonDataElement.author.login} data={jsonDataElement} />
         ))
       )}
     </div>
   );
 };
 
-export default DisplayAPIData;
+export default DisplayContributorsData;
