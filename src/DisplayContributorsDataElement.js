@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayAPIDataElement = ({ data }) => {
+const DisplayContributorDataElement = ({ data }) => {
   const { author, weeks } = data;
   const totalCommits = weeks.reduce((sum, week) => sum + week.c, 0);
   const totalLinesAdded = weeks.reduce((sum, week) => sum + week.a, 0);
@@ -9,7 +9,7 @@ const DisplayAPIDataElement = ({ data }) => {
   const startingWeek = weeks[0].w;
   const endingWeek = weeks[weeks.length - 1].w;
 
-
+//test
   return (
     <div>
       <p>Author {author.login} has made: <br />
@@ -20,11 +20,11 @@ const DisplayAPIDataElement = ({ data }) => {
       </p>
       <ul>
         {weeks.map(week => (
-            week.c != 0 && <li>week: {week.w} added: {week.a} deleted: {week.d} commits: {week.c}</li>
+            week.c !== 0 && <li>week: {week.w} added: {week.a} deleted: {week.d} commits: {week.c}</li>
         ))}
       </ul>
     </div>
   );
 };
 
-export default DisplayAPIDataElement;
+export default DisplayContributorDataElement;

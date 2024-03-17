@@ -1,9 +1,17 @@
 import './App.css';
-import DisplayAPIData from './DisplayAPIData';
+import React, { useState } from 'react';
+import GithubRepoSearchBar from './GithubRepoSearchBar';
+import GithubRepoReports from './GithubRepoReports';
 
-function App() {
+const App = () => {
+  const [githubOwner, setGithubOwner] = useState('');
+  const [githubRepo, setGithubRepo] = useState('');
+
   return (
-    <DisplayAPIData />
+    <div>
+      <GithubRepoSearchBar setGithubOwner={setGithubOwner} setGithubRepo={setGithubRepo} />
+      <GithubRepoReports githubOwner={githubOwner} githubRepo={githubRepo} />
+    </div>
   );
 }
 
