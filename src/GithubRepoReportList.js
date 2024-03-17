@@ -1,27 +1,17 @@
-import React, { useState } from 'react';
-import DisplayContributorsData from './DisplayContributorsData';
+import React from 'react';
 
-const GithubRepoReportList = ({ githubOwner, githubRepo }) => {
-  const [reportUrl, setReportUrl] = useState(`https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`);
-  const [displayReport, setDisplayReport] = useState(false);
+const GithubRepoReportList = ({ githubOwner, githubRepo, setGithubReport }) => {
 
   const GITHUB_REPORT_LIST = [ 
                                 {
                                   reportName: 'Commit Report', 
-                                  reportUrl: 'https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors',
+                                  reportUrl: `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`,
                                 },
-                                {
-                                  reportName: 'Pull Request Report', 
-                                  reportUrl: 'https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors',
-                                }
                             ];
 
   const handleClick = (e) => {
     const newUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
-    setReportUrl(newUrl);
-    setDisplayReport(true);
-    console.log(newUrl);
-    console.log(reportUrl);
+    setGithubReport(newUrl);
   }
     
   return (
@@ -30,9 +20,8 @@ const GithubRepoReportList = ({ githubOwner, githubRepo }) => {
         <ul>
         {
           GITHUB_REPORT_LIST.map( (report) => (
-            <li>
-              <button onClick={handleClick}>{report.reportName}</button>
-              {report.reportUrl}
+            <li key={report.reportName}>
+              <button onClick={handleClick}>{report.reportName}</button>{report.reportUrl}
             </li>
         ))}
         </ul>

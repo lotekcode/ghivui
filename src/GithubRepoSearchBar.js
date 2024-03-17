@@ -9,8 +9,6 @@ const GithubRepoSearch = ({ setGithubOwner, setGithubRepo }) => {
     const [owner, repo] = parseRepoUrl();
     setGithubOwner(owner);
     setGithubRepo(repo);
-    console.log(owner);
-    console.log(repo);
   };
 
   const handleChange = (e) => {

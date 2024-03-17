@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplayContributorsDataElement from './DisplayContributorsDataElement';
 
-const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
+const DisplayContributorsData = ({ githubReport }) => {
   const [jsonData, setJsonData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,9 +11,7 @@ const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const axiosGetUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
-        console.log(axiosGetUrl);
-        const response = await axios.get(axiosGetUrl, {
+        const response = await axios.get(githubReport, {
           headers: {
             'Accept': 'application/vnd.github+json',
             'X-GitHub-Api-Version': '2022-11-28'
@@ -28,7 +26,8 @@ const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
     };
 
     fetchData();
-  }, [githubRepo]);
+    console.log(githubReport);
+  }, [githubReport]);
 
   return ( 
     <div>
