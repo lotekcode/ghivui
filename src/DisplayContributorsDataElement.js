@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayAPIDataElement = ({ data }) => {
+const DisplayContributorDataElement = ({ data }) => {
   const { author, weeks } = data;
   const totalCommits = weeks.reduce((sum, week) => sum + week.c, 0);
   const totalLinesAdded = weeks.reduce((sum, week) => sum + week.a, 0);
@@ -27,4 +27,4 @@ const DisplayAPIDataElement = ({ data }) => {
   );
 };
 
-export default DisplayAPIDataElement;
+export default DisplayContributorDataElement;

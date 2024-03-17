@@ -12,6 +12,7 @@ const DisplayContributorsData = ({ githubOwner, githubRepo }) => {
     const fetchData = async () => {
       try {
         const axiosGetUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
+        console.log(axiosGetUrl);
         const response = await axios.get(axiosGetUrl, {
           headers: {
             'Accept': 'application/vnd.github+json',

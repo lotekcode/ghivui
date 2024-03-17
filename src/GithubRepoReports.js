@@ -3,13 +3,16 @@ import DisplayContributorsData from './DisplayContributorsData';
 
 const GithubRepoReports = ({ githubOwner, githubRepo }) => {
   const [reportUrl, setReportUrl] = useState(`https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`);
-  const [displayReport, setDisplayReport] = useState('false');
-  const [owner, setOwner] = useState('');
-  const [repo, setRepo] = useState('');
+  const [displayReport, setDisplayReport] = useState(false);
+  const [owner, setOwner] = useState(githubOwner);
+  const [repo, setRepo] = useState(githubRepo);
 
   const handleClick = (e) => {
-    setReportUrl(`https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`);
-    setDisplayReport('true');
+    const newUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
+    setReportUrl(newUrl);
+    setDisplayReport(true);
+    console.log(newUrl);
+    console.log(reportUrl);
   }
     
   return (
