@@ -1,4 +1,4 @@
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import GithubRepoSearchBar from './GithubRepoSearchBar';
 import GithubRepoReportList from './GithubRepoReportList';

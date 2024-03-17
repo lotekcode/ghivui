@@ -26,18 +26,17 @@ const DisplayContributorsData = ({ githubReport }) => {
     };
 
     fetchData();
-    console.log(githubReport);
   }, [githubReport]);
 
   return ( 
     <div>
-      <h1>Fetching GitHub Repository Contributors</h1>
+      <h1>Commit Report</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {jsonData && (
+      {!error && jsonData && (
         jsonData.map(jsonDataElement => (
           <DisplayContributorsDataElement key={jsonDataElement.author.login} data={jsonDataElement} />
-        ))
+        )) 
       )}
     </div>
   );
