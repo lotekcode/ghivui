@@ -16,7 +16,13 @@ const DisplayContributorsData = ({ githubReport }) => {
             'X-GitHub-Api-Version': '2022-11-28'
           }
         });
-        setJsonData(response.data);
+        if(response.status == '200') {
+          setJsonData(response.data);
+        }
+        else {
+          setJsonData(null);
+          setError({message: `API responded with a HTTP status ${response.status}`});
+        }
       } catch (error) {
         setError(error);
       } finally {
