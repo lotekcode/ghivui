@@ -4,14 +4,22 @@ const GithubRepoReportList = ({ githubOwner, githubRepo, setGithubReport }) => {
 
   const GITHUB_REPORT_LIST = [ 
                                 {
-                                  reportName: 'Commit Report', 
-                                  reportUrl: `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`,
+                                  name: 'Commit Report', 
+                                  url: `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`,
+                                },
+                                {
+                                  name: 'Merged PRs',
+                                  url: `https://api.github.com/repos/${githubOwner}/${githubRepo}/pulls?state=closed`,
                                 },
                             ];
 
-  const handleClick = (e) => {
-    const newUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/stats/contributors`;
-    setGithubReport(newUrl);
+  const findUrl = (reportName) => {
+    const foundReport = GITHUB_REPORT_LIST.find(report => (report.name === reportName));
+    return foundReport ? foundReport.url : null;
+  }
+
+  const handleClick = (reportName) => {
+    setGithubReport(findUrl(reportName));
   }
     
   return (
@@ -21,7 +29,7 @@ const GithubRepoReportList = ({ githubOwner, githubRepo, setGithubReport }) => {
         {
           GITHUB_REPORT_LIST.map( (report) => (
             <li key={report.reportName}>
-              <button onClick={handleClick}>{report.reportName}</button>{report.reportUrl}
+              <button onClick={() => handleClick(report.name)}>{report.name}</button>{report.url}
             </li>
         ))}
         </ul>

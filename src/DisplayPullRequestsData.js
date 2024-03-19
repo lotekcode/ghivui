@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DisplayContributorsDataElement from './DisplayContributorsDataElement';
+import DisplayPullRequestsDataElement from './DisplayPullRequestsDataElement';
 
-const DisplayContributorsData = ({ githubReport }) => {
+const DisplayPullRequestData = ({ githubReport }) => {
   const [jsonData, setJsonData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,16 +35,16 @@ const DisplayContributorsData = ({ githubReport }) => {
 
   return ( 
     <div>
-      <h1>Commit Report</h1>
+      <h1>Pull Request Report</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {!error && jsonData && (
-        jsonData.map(jsonDataElement => (
-          <DisplayContributorsDataElement key={jsonDataElement.author.login} data={jsonDataElement} />
+        jsonData.map(jsonDataElement => ( 
+          <DisplayPullRequestsDataElement key={jsonDataElement.user} data={jsonDataElement} /> 
         )) 
       )}
     </div>
   );
 };
 
-export default DisplayContributorsData;
+export default DisplayPullRequestData;

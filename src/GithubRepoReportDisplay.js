@@ -1,10 +1,12 @@
 import React from 'react';
-import DisplayContributorsData from './DisplayContributorsData';
+//import DisplayContributorsData from './DisplayContributorsData';
+import DisplayPullRequestData from './DisplayPullRequestsData';
 
 const GithubRepoReportDisplay = ({ githubReport }) => {
 
   return (
-    <DisplayContributorsData githubReport={githubReport}/>
+    //<DisplayContributorsData githubReport={githubReport}/>
+    <DisplayPullRequestData githubReport={githubReport} />
   );
 }
 
