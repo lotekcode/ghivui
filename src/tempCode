@@ -4,9 +4,9 @@ import getApiData from './Utilities';
 
 const DisplayPullRequestData = ({ githubReport }) => {
   const [jsonData, setJsonData] = useState(null);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     setError(null);
     getApiData(githubReport, setJsonData, setError, setLoading);
@@ -18,9 +18,10 @@ const DisplayPullRequestData = ({ githubReport }) => {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {!error && jsonData && (
-        jsonData.map(jsonDataElement => ( 
-          <DisplayPullRequestsDataElement key={jsonDataElement.id} data={jsonDataElement} /> 
-        )) 
+        <p>{JSON.stringify(jsonData, undefined, 2)}</p>
+        //jsonData.map(jsonDataElement => ( 
+          //<DisplayPullRequestsDataElement key={jsonDataElement.user} data={jsonDataElement} /> 
+        //)) 
       )}
     </div>
   );

@@ -9,7 +9,7 @@ const GithubRepoReportList = ({ githubOwner, githubRepo, setGithubReport }) => {
                                 },
                                 {
                                   name: 'Merged PRs',
-                                  url: `https://api.github.com/repos/${githubOwner}/${githubRepo}/pulls?state=closed`,
+                                  url: `https://api.github.com/repos/${githubOwner}/${githubRepo}/pulls`,
                                 },
                             ];
 
