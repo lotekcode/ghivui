@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 
-const GithubRepoSearch = ({ setGithubOwner, setGithubRepo }) => {
+const GithubRepoSearchBar = ({ setGithubApiUrl }) => {
   const [repoUrl, setRepoUrl] = useState('');
+
+  const handleChange = (e) => {
+    setRepoUrl(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const [owner, repo] = parseRepoUrl();
-    setGithubOwner(owner);
-    setGithubRepo(repo);
+    setGithubApiUrl(`https://api.github.com/repos/${owner}/${repo}/pulls?state=merged`);
     setRepoUrl('');
-  };
-
-  const handleChange = (e) => {
-    setRepoUrl(e.target.value);
   };
 
   const parseRepoUrl = () => {
@@ -36,10 +35,10 @@ const GithubRepoSearch = ({ setGithubOwner, setGithubRepo }) => {
             required
           />
         </label>
-        <button type="submit">List Reports</button>
+        <button type="submit">Generate Report</button>
       </form>
     </div>
   );
 };
 
-export default GithubRepoSearch;
+export default GithubRepoSearchBar;
