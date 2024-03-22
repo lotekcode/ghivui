@@ -11,7 +11,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
   const [filters, setFilters] = useState(
     {
       isSet: false,
-      user: 'All',
+      user: 'all',
       start_date: new Date(),
       end_date: new Date(),
       state: 'all'
@@ -19,7 +19,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
   );
   const [filterOptions, setFilterOptions] = useState(
     {
-      'users': ['All', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
+      'users': ['all', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
       'state': '',
     }
   );
