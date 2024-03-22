@@ -8,39 +8,6 @@ const GithubRepoReport = ({ githubApiUrl }) => {
   const [githubApiError, setGithubApiError] = useState(null);
   const [apiCallLoading, setApiCallLoading] = useState(true);
 
-  /*
-  useEffect(() => {
-    const fetchData = async (apiUrl) => {
-      try {
-        const response = await axios.get(apiUrl, {
-          headers: {
-            'Accept': 'application/vnd.github+json',
-            'X-GitHub-Api-Version': '2022-11-28',
-            'Authorization' : bearerToken
-          }
-        });
-    
-        if(response.status === 200) {
-          setGithubApiResponse(
-            convertArrayOfPullUrlsToArrayOfPullObjects(
-              convertArrayOfPullObjectsToArrayOfPullUrls(response.data)
-            )
-          )
-        }
-        else {
-          setGithubApiError({message: `API responded with a ${response.status}`});
-        }
-      } catch (error) {
-        setGithubApiError(error);
-      } finally {
-        setApiCallLoading(false);
-      }
-    }
-
-    fetchData(githubApiUrl);
-  }, [githubApiUrl]);
-  */
-
   useEffect(() => {
     const headers = {
       headers: {
@@ -53,12 +20,12 @@ const GithubRepoReport = ({ githubApiUrl }) => {
     async function fetchPullRequestJsonArray(apiUrl) {
       let hydratedPullRequestJsonArray = [];
 
-      const apiResponse1 = await fetch(apiUrl, headers);
-      const pullRequestJsonArray = await apiResponse1.json();
+      const apiResponse = await fetch(apiUrl, headers);
+      const pullRequestJsonArray = await apiResponse.json();
 
       pullRequestJsonArray.map(async (pullRequestJson) => {
-        const apiResponse2 = await fetch(pullRequestJson.url, headers);
-        const pullRequestObjectJson = await apiResponse2.json();
+        const apiResponse = await fetch(pullRequestJson.url, headers);
+        const pullRequestObjectJson = await apiResponse.json();
 
         hydratedPullRequestJsonArray = [...hydratedPullRequestJsonArray, pullRequestObjectJson];
         setGithubApiResponse(hydratedPullRequestJsonArray);
@@ -70,6 +37,9 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 
     fetchPullRequestJsonArray(githubApiUrl);
   }, [githubApiUrl]);
+
+  
+
 
   return (
     <div>

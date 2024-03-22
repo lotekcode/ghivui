@@ -11,7 +11,7 @@ const GithubRepoSearchBar = ({ setGithubApiUrl }) => {
     e.preventDefault();
 
     const [owner, repo] = parseRepoUrl();
-    setGithubApiUrl(`https://api.github.com/repos/${owner}/${repo}/pulls?state=merged`);
+    setGithubApiUrl(`https://api.github.com/repos/${owner}/${repo}/pulls?state=all`);
     setRepoUrl('');
   };
 

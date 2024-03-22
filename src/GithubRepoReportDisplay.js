@@ -2,13 +2,17 @@
 
 const GithubRepoReportDisplay = ({ pullRequestJsonArray }) => {
 
+    //const userContributionSummaryJson = pullRequestJsonArray.filter((pr) => (pr.user.login === 'dantidwell'));
+    const reportJson = pullRequestJsonArray;
+
     return ( 
-        pullRequestJsonArray.map( (pullRequestJson) => {
+        reportJson.map( (pullRequestJson) => {
             return (
-                <div>
+                <div key={pullRequestJson.id}>
                     User: {pullRequestJson.user.login}<br />
                     Pull URL: {pullRequestJson.url}<br />
-                    Pull ID: {pullRequestJson.id}<br />
+                    State: {pullRequestJson.state}<br />
+                    Merged at: {pullRequestJson.merged_at}<br />
                     Additions: {pullRequestJson.additions}<br />
                     Deletions: {pullRequestJson.deletions}<br />
                     Changed Files: {pullRequestJson.changed_files}<br />
