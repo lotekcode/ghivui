@@ -2,7 +2,7 @@ import DatePicker from 'react-date-picker';
 import { useState } from 'react';
 
 
-const GithubRepoReportFilters = ({filters, setFilters}) => {
+const GithubRepoReportFilters = ({filters, setFilters, filterOptions }) => {
   const [startDateFilter, setStartDateFilter] = useState(filters.start_date);
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
@@ -19,14 +19,11 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
         'end_date': endDateFilter,
         'user': userFilter
     };
-    console.log("setting newFilters");
-    console.log(newFilters);
 
     setFilters(newFilters);
-    console.log("reading global filters");
-    console.log(filters);
+    
   }
-
+  console.log(filterOptions);
 
   return (
     <div>

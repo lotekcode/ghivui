@@ -7,6 +7,12 @@ const GithubRepoReport = ({ githubApiUrl, filters}) => {
   const [githubApiResponse, setGithubApiResponse] = useState([]);
   const [githubApiError, setGithubApiError] = useState(null);
   const [apiCallLoading, setApiCallLoading] = useState(true);
+  const [filterOptions, setFilterOptions] = useState(
+    {
+      'users': [],
+      'state': '',
+    }
+  )
 
   useEffect(() => {
     const headers = {
@@ -17,7 +23,7 @@ const GithubRepoReport = ({ githubApiUrl, filters}) => {
       }
     };
 
-    async function fetchPullRequestJsonArray(apiUrl) {
+    const fetchPullRequestJsonArray = async (apiUrl) => {
       let hydratedPullRequestJsonArray = [];
 
       const apiResponse = await fetch(apiUrl, headers);
@@ -30,16 +36,22 @@ const GithubRepoReport = ({ githubApiUrl, filters}) => {
         hydratedPullRequestJsonArray = [...hydratedPullRequestJsonArray, pullRequestObjectJson];
         setGithubApiResponse(hydratedPullRequestJsonArray);
       });
-
+      
       setGithubApiError(null);
       setApiCallLoading(false);
     }
 
+    const loadFilterOptions = (pullRequestJsonArray) => {
+      const uniqueUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
+      setFilterOptions( { 'users': [uniqueUsers] });
+      console.log(filterOptions)
+    }
+
     fetchPullRequestJsonArray(githubApiUrl);
+    loadFilterOptions(githubApiResponse);
+    
+
   }, [githubApiUrl]);
-
-  
-
 
   return (
     <div>

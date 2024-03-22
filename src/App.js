@@ -8,14 +8,20 @@ import GithubRepoReportFilters from './GithubRepoReportFilters';
 
 const App = () => {
 
-  const startingFilters = {
-    isSet: false,
-    user: 'OakleyCord',
-    start_date: new Date(),
-    end_date: new Date(),
-  };
-
-  const [filters, setFilters] = useState(startingFilters);
+   const [filters, setFilters] = useState(
+    {
+      isSet: false,
+      user: 'OakleyCord',
+      start_date: new Date(),
+      end_date: new Date(),
+    }
+  );
+  const [filterOptions, setFilterOptions] = useState(
+    {
+      'users': [],
+      'state': '',
+    }
+  );
   const [githubApiUrl, setGithubApiUrl] = useState(null);
 
   return (
@@ -23,15 +29,16 @@ const App = () => {
       <GithubRepoSearchBar  setGithubApiUrl={setGithubApiUrl} />
 
       { githubApiUrl &&
-        <GithubRepoReportFilters filters={filters} setFilters={setFilters} />
+        <GithubRepoReportFilters filters={filters} setFilters={setFilters} filterOptions={filterOptions} />
       }
 
       { githubApiUrl && filters.isSet && 
         <GithubRepoReport githubApiUrl={githubApiUrl} filters={filters} />
       }
-      {console.log(filters)}
+
     </div>
   );
 }
 
 export default App;
+
