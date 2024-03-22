@@ -2,7 +2,7 @@
 
 const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 
-    const userContributionSummaryJson = pullRequestJsonArray.filter((pr) => (pr.user.login === filters.user)); //dantidwell
+    const userContributionSummaryJson = pullRequestJsonArray.filter((pullRequestJson) => (pullRequestJson.user.login === filters.user)); //dantidwell
     //const reportJson = pullRequestJsonArray;
     const reportJson = userContributionSummaryJson;
 

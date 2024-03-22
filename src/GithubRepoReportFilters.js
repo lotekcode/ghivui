@@ -2,7 +2,7 @@ import DatePicker from 'react-date-picker';
 import { useState } from 'react';
 
 
-const GithubRepoReportFilters = ({filters, setFilters, filterOptions }) => {
+const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
   const [startDateFilter, setStartDateFilter] = useState(filters.start_date);
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
@@ -23,7 +23,6 @@ const GithubRepoReportFilters = ({filters, setFilters, filterOptions }) => {
     setFilters(newFilters);
     
   }
-  console.log(filterOptions);
 
   return (
     <div>
@@ -32,9 +31,12 @@ const GithubRepoReportFilters = ({filters, setFilters, filterOptions }) => {
         End Date: <DatePicker name='endDateFilter' onChange={setEndDateFilter} value={endDateFilter} /><br />
         User: 
         <select value={userFilter} onChange={handleUserFilterChange}>
-            <option value="dantidwell">dantidwell</option>
-            <option value="OakleyCord">OakleyCord</option>
-            <option value="BBQGiraffe">BBQGiraffe</option>
+            {filterOptions.users.map((user) => {
+                return (
+                    <option value={user}>{user}</option>
+                )
+            })}
+           
         </select><br />
         <button name='submit' onClick={applyFilters}>View Report</button>
     </div>

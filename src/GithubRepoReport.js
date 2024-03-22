@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { bearerToken } from './.env/secure';
+import GithubRepoReportFilters from './GithubRepoReportFilters';
 import GithubRepoReportDisplay from './GithubRepoReportDisplay';
 
 
-const GithubRepoReport = ({ githubApiUrl, filters}) => {
+const GithubRepoReport = ({ githubApiUrl }) => {
   const [githubApiResponse, setGithubApiResponse] = useState([]);
   const [githubApiError, setGithubApiError] = useState(null);
   const [apiCallLoading, setApiCallLoading] = useState(true);
+  const [filters, setFilters] = useState(
+    {
+      isSet: false,
+      user: 'All',
+      start_date: new Date(),
+      end_date: new Date(),
+      state: 'all'
+    }
+  );
   const [filterOptions, setFilterOptions] = useState(
     {
-      'users': [],
+      'users': ['All', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
       'state': '',
     }
-  )
+  );
 
   useEffect(() => {
     const headers = {
@@ -41,14 +51,16 @@ const GithubRepoReport = ({ githubApiUrl, filters}) => {
       setApiCallLoading(false);
     }
 
+    /*
     const loadFilterOptions = (pullRequestJsonArray) => {
       const uniqueUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
-      setFilterOptions( { 'users': [uniqueUsers] });
+      setFilterOptions( { ...filterOptions, 'users': [uniqueUsers] });
       console.log(filterOptions)
     }
+    */
 
     fetchPullRequestJsonArray(githubApiUrl);
-    loadFilterOptions(githubApiResponse);
+    //loadFilterOptions(githubApiResponse);
     
 
   }, [githubApiUrl]);
@@ -58,7 +70,10 @@ const GithubRepoReport = ({ githubApiUrl, filters}) => {
       <h1>Pull Request Report</h1>
       {apiCallLoading && <p>Loading...</p>}
       {githubApiError && <p>Error: {githubApiError.message}</p>}
-      {!githubApiError && githubApiResponse && (
+      { githubApiUrl &&
+        <GithubRepoReportFilters filters={filters} setFilters={setFilters} filterOptions={filterOptions} />
+      }
+      {!githubApiError && githubApiResponse && filters.isSet && (
         <GithubRepoReportDisplay pullRequestJsonArray={githubApiResponse} filters={filters} />
       )}
     </div>
