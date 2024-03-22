@@ -3,7 +3,7 @@ import { bearerToken } from './.env/secure';
 import GithubRepoReportDisplay from './GithubRepoReportDisplay';
 
 
-const GithubRepoReport = ({ githubApiUrl }) => {
+const GithubRepoReport = ({ githubApiUrl, filters}) => {
   const [githubApiResponse, setGithubApiResponse] = useState([]);
   const [githubApiError, setGithubApiError] = useState(null);
   const [apiCallLoading, setApiCallLoading] = useState(true);
@@ -47,7 +47,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
       {apiCallLoading && <p>Loading...</p>}
       {githubApiError && <p>Error: {githubApiError.message}</p>}
       {!githubApiError && githubApiResponse && (
-        <GithubRepoReportDisplay pullRequestJsonArray={githubApiResponse} />
+        <GithubRepoReportDisplay pullRequestJsonArray={githubApiResponse} filters={filters} />
       )}
     </div>
   );
