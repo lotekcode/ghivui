@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DisplayContributorsDataElement from './DisplayContributorsDataElement';
-import getApiData from './Utilities';
+import getApiData from '../Utilities';
 
 const DisplayContributorsData = ({ githubReport }) => {
   const [jsonData, setJsonData] = useState(null);

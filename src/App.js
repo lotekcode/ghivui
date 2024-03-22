@@ -1,25 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 import React, { useState } from 'react';
 import GithubRepoSearchBar from './GithubRepoSearchBar';
-import GithubRepoReportList from './GithubRepoReportList';
-import GithubRepoReportDisplay from './GithubRepoReportDisplay';
+import GithubRepoReport from './GithubRepoReport';
+import GithubRepoReportFilters from './GithubRepoReportFilters';
 
 const App = () => {
-  const [githubOwner, setGithubOwner] = useState(null);
-  const [githubRepo, setGithubRepo] = useState(null);
-  const [githubReport, setGithubReport] = useState(null);
+
+  const startingFilters = {
+    isSet: false,
+    user: 'OakleyCord',
+    start_date: new Date(),
+    end_date: new Date(),
+  };
+
+  const [filters, setFilters] = useState(startingFilters);
+  const [githubApiUrl, setGithubApiUrl] = useState(null);
 
   return (
     <div>
-      <GithubRepoSearchBar setGithubOwner={setGithubOwner} setGithubRepo={setGithubRepo} />
+      <GithubRepoSearchBar  setGithubApiUrl={setGithubApiUrl} />
 
-      { githubOwner && githubRepo &&
-        <GithubRepoReportList githubOwner={githubOwner} githubRepo={githubRepo} setGithubReport={setGithubReport} />
+      { githubApiUrl &&
+        <GithubRepoReportFilters filters={filters} setFilters={setFilters} />
       }
 
-      { githubReport &&
-        <GithubRepoReportDisplay githubReport={githubReport} />
+      { githubApiUrl && filters.isSet && 
+        <GithubRepoReport githubApiUrl={githubApiUrl} filters={filters} />
       }
+      {console.log(filters)}
     </div>
   );
 }
