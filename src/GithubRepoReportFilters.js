@@ -33,7 +33,7 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         <select value={userFilter} onChange={handleUserFilterChange}>
             {filterOptions.users.map((user) => {
                 return (
-                    <option value={user}>{user}</option>
+                    <option key={user} value={user}>{user}</option>
                 )
             })}
            

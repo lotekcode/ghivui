@@ -26,41 +26,42 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 
   useEffect(() => {
     const headers = {
-      headers: {
+      'headers': {
         'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
         'Authorization' : bearerToken 
       }
     };
 
-    const fetchPullRequestJsonArray = async (apiUrl) => {
-      let hydratedPullRequestJsonArray = [];
-
-      const apiResponse = await fetch(apiUrl, headers);
-      const pullRequestJsonArray = await apiResponse.json();
-
-      pullRequestJsonArray.map(async (pullRequestJson) => {
-        const apiResponse = await fetch(pullRequestJson.url, headers);
-        const pullRequestObjectJson = await apiResponse.json();
-
-        hydratedPullRequestJsonArray = [...hydratedPullRequestJsonArray, pullRequestObjectJson];
-        setGithubApiResponse(hydratedPullRequestJsonArray);
-      });
-      
+    const fetchPullRequestJsonArray = async (apiUrl, headers) => {
+      const pullRequestJsonArray = await fetchApiResponseJson(apiUrl, headers);
+      console.log({pullRequestJsonArray});
+      const hydratedPullRequestJsonArray = await Promise.all(
+        pullRequestJsonArray.map( 
+          async (pullRequestJson) => await fetchApiResponseJson(pullRequestJson.url, headers)
+        )
+      );
+      console.log({hydratedPullRequestJsonArray});
       setGithubApiError(null);
       setApiCallLoading(false);
-    }
 
-    /*
+      return hydratedPullRequestJsonArray;
+    }  
+
+    /* This probably works but commenting out while debugging 
     const loadFilterOptions = (pullRequestJsonArray) => {
-      const uniqueUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
-      setFilterOptions( { ...filterOptions, 'users': [uniqueUsers] });
-      console.log(filterOptions)
+      const allUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
+      const uniqueUsers = allUsers.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
+      setFilterOptions( { ...filterOptions, 'users': [...uniqueUsers] });
+      console.log(uniqueUsers);
+      console.log(filterOptions);
     }
     */
 
-    fetchPullRequestJsonArray(githubApiUrl);
-    //loadFilterOptions(githubApiResponse);
+    const dataForSetGithubApiResponse = fetchPullRequestJsonArray(githubApiUrl, headers);
+    console.log({dataForSetGithubApiResponse});
+    setGithubApiResponse (dataForSetGithubApiResponse);
+    //loadFilterOptions(localGithubApiResponse);
     
 
   }, [githubApiUrl]);
@@ -81,4 +82,10 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 }
 export default GithubRepoReport;
 
+
+const fetchApiResponseJson = async (apiUrl, headers) => {
+  const apiResponse = await fetch(apiUrl, headers);
+  const apiResponseJson = await apiResponse.json();
+  return apiResponseJson;
+}
 
