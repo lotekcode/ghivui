@@ -21,7 +21,6 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
     };
 
     setFilters(newFilters);
-    
   }
 
   return (

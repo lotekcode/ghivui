@@ -24,7 +24,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
     }
   );
 
-  useEffect(() => {
+  useEffect( () => {
     const headers = {
       'headers': {
         'Accept': 'application/vnd.github+json',
@@ -35,20 +35,17 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 
     const fetchPullRequestJsonArray = async (apiUrl, headers) => {
       const pullRequestJsonArray = await fetchApiResponseJson(apiUrl, headers);
-      console.log({pullRequestJsonArray});
       const hydratedPullRequestJsonArray = await Promise.all(
         pullRequestJsonArray.map( 
           async (pullRequestJson) => await fetchApiResponseJson(pullRequestJson.url, headers)
         )
       );
-      console.log({hydratedPullRequestJsonArray});
+    
       setGithubApiError(null);
       setApiCallLoading(false);
-
       return hydratedPullRequestJsonArray;
     }  
-
-    /* This probably works but commenting out while debugging 
+ 
     const loadFilterOptions = (pullRequestJsonArray) => {
       const allUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
       const uniqueUsers = allUsers.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
@@ -56,13 +53,17 @@ const GithubRepoReport = ({ githubApiUrl }) => {
       console.log(uniqueUsers);
       console.log(filterOptions);
     }
-    */
-
-    const dataForSetGithubApiResponse = fetchPullRequestJsonArray(githubApiUrl, headers);
-    console.log({dataForSetGithubApiResponse});
-    setGithubApiResponse (dataForSetGithubApiResponse);
-    //loadFilterOptions(localGithubApiResponse);
+  
+    const setStates = async (githubApiUrl, headers) => {
+      const dataForSetGithubApiResponse = await fetchPullRequestJsonArray(githubApiUrl, headers)
+      .then( dataForSetGithubApiResponse=> {
+        setGithubApiResponse (dataForSetGithubApiResponse)
+        loadFilterOptions(dataForSetGithubApiResponse);
+    });
+      
+    }
     
+    setStates(githubApiUrl, headers);
 
   }, [githubApiUrl]);
 
