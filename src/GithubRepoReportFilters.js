@@ -7,6 +7,10 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
 
+  const handleUserFilterChange = (event) => {
+    setUserFilter(event.target.value);
+  }
+
   const applyFilters = () => {
     const newFilters = {
         ...filters, 
@@ -15,7 +19,12 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
         'end_date': endDateFilter,
         'user': userFilter
     };
+    console.log("setting newFilters");
+    console.log(newFilters);
+
     setFilters(newFilters);
+    console.log("reading global filters");
+    console.log(filters);
   }
 
 
@@ -25,10 +34,10 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
         Start Date: <DatePicker name='startDateFilter' onChange={setStartDateFilter} value={startDateFilter} /><br />
         End Date: <DatePicker name='endDateFilter' onChange={setEndDateFilter} value={endDateFilter} /><br />
         User: 
-        <select value={userFilter} onChange={setUserFilter}>
-            <option value="user1">user1</option>
-            <option value="user2">user2</option>
-            <option value="user3">user3</option>
+        <select value={userFilter} onChange={handleUserFilterChange}>
+            <option value="dantidwell">dantidwell</option>
+            <option value="OakleyCord">OakleyCord</option>
+            <option value="BBQGiraffe">BBQGiraffe</option>
         </select><br />
         <button name='submit' onClick={applyFilters}>View Report</button>
     </div>

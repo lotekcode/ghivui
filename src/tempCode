@@ -1,0 +1,30 @@
+import React, { useState, useEffect } from 'react';
+import DisplayPullRequestsDataElement from './DisplayPullRequestsDataElement';
+import getApiData from './Utilities';
+
+const DisplayPullRequestData = ({ githubReport }) => {
+  const [jsonData, setJsonData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setError(null);
+    getApiData(githubReport, setJsonData, setError, setLoading);
+  }, [githubReport]);
+
+  return ( 
+    <div>
+      <h1>Pull Request Report</h1>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {!error && jsonData && (
+        <p>{JSON.stringify(jsonData, undefined, 2)}</p>
+        //jsonData.map(jsonDataElement => ( 
+          //<DisplayPullRequestsDataElement key={jsonDataElement.user} data={jsonDataElement} /> 
+        //)) 
+      )}
+    </div>
+  );
+};
+
+export default DisplayPullRequestData;

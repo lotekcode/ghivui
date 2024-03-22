@@ -1,8 +1,9 @@
 //import React, { useState, useEffect } from 'react';
 
-const GithubRepoReportDisplay = ({ pullRequestJsonArray }) => {
+const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 
-    //const userContributionSummaryJson = pullRequestJsonArray.filter((pr) => (pr.user.login === 'dantidwell'));
+    //const userContributionSummaryJson = pullRequestJsonArray.filter((pr) => (pr.user.login === 'dantidwell')); //dantidwell
+    //const reportJson = pullRequestJsonArray;
     const reportJson = pullRequestJsonArray;
 
     return ( 

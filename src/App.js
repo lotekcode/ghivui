@@ -10,7 +10,7 @@ const App = () => {
 
   const startingFilters = {
     isSet: false,
-    user: 'lotekcode',
+    user: 'OakleyCord',
     start_date: new Date(),
     end_date: new Date(),
   };
@@ -26,9 +26,10 @@ const App = () => {
         <GithubRepoReportFilters filters={filters} setFilters={setFilters} />
       }
 
-      { githubApiUrl && filters.isSet &&
+      { githubApiUrl && filters.isSet && 
         <GithubRepoReport githubApiUrl={githubApiUrl} filters={filters} />
       }
+      {console.log(filters)}
     </div>
   );
 }
