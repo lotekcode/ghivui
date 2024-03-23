@@ -6,14 +6,20 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
   const [startDateFilter, setStartDateFilter] = useState(filters.start_date);
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [stateFilter, setStateFilter] = useState(filters.state);
+  const [isMergedFilter, setIsMergedFilter] = useState(true);
 
   const handleUserFilterChange = (event) => {
     setUserFilter(event.target.value);
   }
 
   const handleStatusFilterChange = (event) => {
-    setStatusFilter(event.target.value);
+    setStateFilter(event.target.value);
+  }
+
+  const handleIsMergedFilterChange = (event) => {
+    setIsMergedFilter(!isMergedFilter);
+    console.log(isMergedFilter);
   }
 
   const applyFilters = () => {
@@ -22,7 +28,8 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         'isSet': true, 
         'start_date': startDateFilter,
         'end_date': endDateFilter,
-        'user': userFilter
+        'user': userFilter,
+        'state': stateFilter,
     };
 
     setFilters(newFilters);
@@ -42,9 +49,14 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
           })}
         </select><br />
         PR Status:
-        <select value={statusFilter} onChange={handleStatusFilterChange}>
-          <option key='all' value='all'>all</option>
+        <select value={stateFilter} onChange={handleStatusFilterChange}>
+          {filterOptions.state.map((state) => {
+              return (
+                  <option key={state} value={state}>{state}</option>
+              )
+            })}
         </select>
+        is Merged?: <input type="checkbox" value={isMergedFilter} onChange={handleIsMergedFilterChange}></input><br />
         <button name='submit' onClick={applyFilters}>View Report</button>
     </div>
   );

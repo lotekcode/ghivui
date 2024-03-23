@@ -8,21 +8,17 @@ const GithubRepoReport = ({ githubApiUrl }) => {
   const [githubApiResponse, setGithubApiResponse] = useState([]);
   const [githubApiError, setGithubApiError] = useState(null);
   const [apiCallLoading, setApiCallLoading] = useState(true);
-  const [filters, setFilters] = useState(
-    {
-      isSet: false,
-      user: 'all',
-      start_date: new Date(),
-      end_date: new Date(),
-      state: 'all'
-    }
-  );
-  const [filterOptions, setFilterOptions] = useState(
-    {
-      'users': ['all', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
-      'state': '',
-    }
-  );
+  const [filters, setFilters] = useState({
+    isSet: false,
+    user: 'all',
+    start_date: new Date(),
+    end_date: new Date(),
+    state: 'all'
+  });
+  const [filterOptions, setFilterOptions] = useState({
+    'users': ['all', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
+    'state': ['all'],
+  });
 
   useEffect( () => {
     const headers = {
@@ -49,9 +45,15 @@ const GithubRepoReport = ({ githubApiUrl }) => {
     const loadFilterOptions = (pullRequestJsonArray) => {
       const allUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
       const uniqueUsers = allUsers.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
-      setFilterOptions( { ...filterOptions, 'users': [...uniqueUsers] });
-      console.log(uniqueUsers);
-      console.log(filterOptions);
+
+      const allStatuses = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.state);
+      const uniqueStatuses = allStatuses.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
+
+      setFilterOptions( { 
+        ...filterOptions, 
+        'users': ['all', ...uniqueUsers],  
+        'state': ['all', ...uniqueStatuses],
+      });
     }
   
     const setStates = async (githubApiUrl, headers) => {
