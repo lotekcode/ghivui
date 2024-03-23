@@ -15,11 +15,12 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
 
   const handleStatusFilterChange = (event) => {
     setStateFilter(event.target.value);
+    if(stateFilter !== 'closed') { setIsMergedFilter(false) }
   }
 
   const handleIsMergedFilterChange = (event) => {
     setIsMergedFilter(!isMergedFilter);
-    console.log(isMergedFilter);
+    if(isMergedFilter) { setStateFilter('closed') };
   }
 
   const applyFilters = () => {
@@ -30,6 +31,7 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         'end_date': endDateFilter,
         'user': userFilter,
         'state': stateFilter,
+        'isMerged': isMergedFilter,
     };
 
     setFilters(newFilters);

@@ -13,11 +13,12 @@ const GithubRepoReport = ({ githubApiUrl }) => {
     user: 'all',
     start_date: new Date(),
     end_date: new Date(),
-    state: 'all'
+    state: 'all',
+    isMerged: false,
   });
   const [filterOptions, setFilterOptions] = useState({
-    'users': ['all', 'dantidwell', 'OakleyCord', 'BBQGiraffe'],
-    'state': ['all'],
+    'users': ['all'],
+    'state': ['all', 'open', 'closed'],
   });
 
   useEffect( () => {
@@ -46,13 +47,9 @@ const GithubRepoReport = ({ githubApiUrl }) => {
       const allUsers = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.user.login);
       const uniqueUsers = allUsers.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
 
-      const allStatuses = pullRequestJsonArray.map( (pullRequestJson) => pullRequestJson.state);
-      const uniqueStatuses = allStatuses.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
-
       setFilterOptions( { 
         ...filterOptions, 
         'users': ['all', ...uniqueUsers],  
-        'state': ['all', ...uniqueStatuses],
       });
     }
   

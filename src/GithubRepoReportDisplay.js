@@ -4,15 +4,14 @@ const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 
     const filteredPullRequestJsonArray = pullRequestJsonArray
         .filter(
-            (pullRequestJson) => (
-                filters.user === 'all' ? true : pullRequestJson.user.login === filters.user
-            )
+          (pullRequestJson) => ( filters.user === 'all' ? true : pullRequestJson.user.login === filters.user)
         )
         .filter(
-            (pullRequestJson) => (
-                filters.state === 'all' ? true : pullRequestJson.state === filters.state
-            )
-        ); 
+          (pullRequestJson) => ( filters.state === 'all' ? true : pullRequestJson.state === filters.state )
+        )
+        .filter(
+          (pullRequestJson) => ( filters.isMerged === pullRequestJson.merged)
+        );
 
 
     return ( 
