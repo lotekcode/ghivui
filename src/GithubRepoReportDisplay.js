@@ -2,24 +2,36 @@
 
 const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 
-    const userContributionSummaryJson = pullRequestJsonArray.filter((pr) => (pr.user.login === filters.user)); //dantidwell
-    //const reportJson = pullRequestJsonArray;
-    const reportJson = userContributionSummaryJson;
+    const filteredPullRequestJsonArray = pullRequestJsonArray
+        .filter(
+            (pullRequestJson) => (
+                filters.user === 'all' ? true : pullRequestJson.user.login === filters.user
+            )
+        )
+        .filter(
+            (pullRequestJson) => (
+                filters.state === 'all' ? true : pullRequestJson.state === filters.state
+            )
+        ); 
+
 
     return ( 
-        reportJson.map( (pullRequestJson) => {
+        filteredPullRequestJsonArray.map( (filteredPullRequestJson) => {
             return (
-                <div key={pullRequestJson.id}>
-                    User: {pullRequestJson.user.login}<br />
-                    Pull URL: {pullRequestJson.url}<br />
-                    State: {pullRequestJson.state}<br />
-                    Merged at: {pullRequestJson.merged_at}<br />
-                    Additions: {pullRequestJson.additions}<br />
-                    Deletions: {pullRequestJson.deletions}<br />
-                    Changed Files: {pullRequestJson.changed_files}<br />
+                <div key={filteredPullRequestJson.id}>
+                    User: {filteredPullRequestJson.user.login}<br />
+                    Pull URL: {filteredPullRequestJson.url}<br />
+                    State: {filteredPullRequestJson.state}<br />
+                    Merged at: {filteredPullRequestJson.merged_at}<br />
+                    Additions: {filteredPullRequestJson.additions}<br />
+                    Deletions: {filteredPullRequestJson.deletions}<br />
+                    Changed Files: {filteredPullRequestJson.changed_files}<br />
                 </div>
             )
         })
     );
 }
 export default GithubRepoReportDisplay;
+
+
+// return pullRequestJson.user.login === 'all' ? true : pullRequestJson.user.login === filters.user

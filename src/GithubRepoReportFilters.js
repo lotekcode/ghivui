@@ -2,13 +2,24 @@ import DatePicker from 'react-date-picker';
 import { useState } from 'react';
 
 
-const GithubRepoReportFilters = ({filters, setFilters}) => {
+const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
   const [startDateFilter, setStartDateFilter] = useState(filters.start_date);
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
+  const [stateFilter, setStateFilter] = useState(filters.state);
+  const [isMergedFilter, setIsMergedFilter] = useState(true);
 
   const handleUserFilterChange = (event) => {
     setUserFilter(event.target.value);
+  }
+
+  const handleStatusFilterChange = (event) => {
+    setStateFilter(event.target.value);
+  }
+
+  const handleIsMergedFilterChange = (event) => {
+    setIsMergedFilter(!isMergedFilter);
+    console.log(isMergedFilter);
   }
 
   const applyFilters = () => {
@@ -17,16 +28,12 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
         'isSet': true, 
         'start_date': startDateFilter,
         'end_date': endDateFilter,
-        'user': userFilter
+        'user': userFilter,
+        'state': stateFilter,
     };
-    console.log("setting newFilters");
-    console.log(newFilters);
 
     setFilters(newFilters);
-    console.log("reading global filters");
-    console.log(filters);
   }
-
 
   return (
     <div>
@@ -35,10 +42,21 @@ const GithubRepoReportFilters = ({filters, setFilters}) => {
         End Date: <DatePicker name='endDateFilter' onChange={setEndDateFilter} value={endDateFilter} /><br />
         User: 
         <select value={userFilter} onChange={handleUserFilterChange}>
-            <option value="dantidwell">dantidwell</option>
-            <option value="OakleyCord">OakleyCord</option>
-            <option value="BBQGiraffe">BBQGiraffe</option>
+          {filterOptions.users.map((user) => {
+              return (
+                  <option key={user} value={user}>{user}</option>
+              )
+          })}
         </select><br />
+        PR Status:
+        <select value={stateFilter} onChange={handleStatusFilterChange}>
+          {filterOptions.state.map((state) => {
+              return (
+                  <option key={state} value={state}>{state}</option>
+              )
+            })}
+        </select>
+        is Merged?: <input type="checkbox" value={isMergedFilter} onChange={handleIsMergedFilterChange}></input><br />
         <button name='submit' onClick={applyFilters}>View Report</button>
     </div>
   );
