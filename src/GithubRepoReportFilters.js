@@ -6,9 +6,14 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
   const [startDateFilter, setStartDateFilter] = useState(filters.start_date);
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
+  const [statusFilter, setStatusFilter] = useState('all');
 
   const handleUserFilterChange = (event) => {
     setUserFilter(event.target.value);
+  }
+
+  const handleStatusFilterChange = (event) => {
+    setStatusFilter(event.target.value);
   }
 
   const applyFilters = () => {
@@ -30,13 +35,16 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         End Date: <DatePicker name='endDateFilter' onChange={setEndDateFilter} value={endDateFilter} /><br />
         User: 
         <select value={userFilter} onChange={handleUserFilterChange}>
-            {filterOptions.users.map((user) => {
-                return (
-                    <option key={user} value={user}>{user}</option>
-                )
-            })}
-           
+          {filterOptions.users.map((user) => {
+              return (
+                  <option key={user} value={user}>{user}</option>
+              )
+          })}
         </select><br />
+        PR Status:
+        <select value={statusFilter} onChange={handleStatusFilterChange}>
+          <option key='all' value='all'>all</option>
+        </select>
         <button name='submit' onClick={applyFilters}>View Report</button>
     </div>
   );

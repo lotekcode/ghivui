@@ -60,7 +60,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
         setGithubApiResponse (dataForSetGithubApiResponse)
         loadFilterOptions(dataForSetGithubApiResponse);
     });
-      
+      return dataForSetGithubApiResponse;
     }
     
     setStates(githubApiUrl, headers);
