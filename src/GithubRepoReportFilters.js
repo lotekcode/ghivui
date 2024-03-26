@@ -1,5 +1,5 @@
 import DatePicker from 'react-date-picker';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 
 
 const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
@@ -35,6 +35,10 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
     setFilters(newFilters);
   }
 
+  useEffect( () => {
+    applyFilters();
+  }, [startDateFilter, endDateFilter, userFilter, stateFilter, isMergedFilter]);
+
   return (
     <div>
         <h1>Filters</h1>
@@ -57,7 +61,6 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
             })}
         </select>
         is Merged?: <input type="checkbox" value={isMergedFilter} onChange={handleIsMergedFilterChange}></input><br />
-        <button name='submit' onClick={applyFilters}>View Report</button>
     </div>
   );
 }
