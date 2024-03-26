@@ -18,32 +18,36 @@ const GithubRepoReportDisplayDetail = ({filteredPullRequestJson}) => {
         </thead>
         <tbody>
             <tr>
-            <td>State</td>
+                <td>Create Date</td>
+                <td>{filteredPullRequestJson.created_at}</td>
+            </tr>
+            <tr>
+                <td>State</td>
                 <td>{filteredPullRequestJson.state}</td>
             </tr>
             <tr>
-            <td>Merged?</td>
-            <td>{filteredPullRequestJson.merged}</td>
+                <td>Merged?</td>
+                <td>{filteredPullRequestJson.merged}</td>
             </tr>
             <tr>
-            <td>Merged Date</td>
-            <td>{filteredPullRequestJson.merged_at}</td>
+                <td>Merged Date</td>
+                <td>{filteredPullRequestJson.merged_at}</td>
             </tr>
             <tr>
-            <td>Commits</td>
-            <td>{filteredPullRequestJson.commits}</td>
+                <td>Commits</td>
+                <td>{filteredPullRequestJson.commits}</td>
             </tr>
             <tr>
-            <td>Changed Files</td>
-            <td>{filteredPullRequestJson.changed_files}</td>
+                <td>Changed Files</td>
+                <td>{filteredPullRequestJson.changed_files}</td>
             </tr>
             <tr>
-            <td>Additions</td>
-            <td>{filteredPullRequestJson.additions}</td>
+                <td>Additions</td>
+                <td>{filteredPullRequestJson.additions}</td>
             </tr>
             <tr>
-            <td>Deletions</td>
-            <td>{filteredPullRequestJson.deletions}</td>
+                <td>Deletions</td>
+                <td>{filteredPullRequestJson.deletions}</td>
             </tr>
         </tbody>
     </Table>                
