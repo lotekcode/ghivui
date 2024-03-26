@@ -7,7 +7,7 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
   const [endDateFilter, setEndDateFilter] = useState(filters.start_date);
   const [userFilter, setUserFilter] = useState(filters.user);
   const [stateFilter, setStateFilter] = useState(filters.state);
-  const [isMergedFilter, setIsMergedFilter] = useState(true);
+  const [isMergedFilter, setIsMergedFilter] = useState(filters.isMerged);
 
   const handleUserFilterChange = (event) => {
     setUserFilter(event.target.value);
@@ -15,12 +15,11 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
 
   const handleStatusFilterChange = (event) => {
     setStateFilter(event.target.value);
-    if(stateFilter !== 'closed') { setIsMergedFilter(false) }
   }
 
   const handleIsMergedFilterChange = (event) => {
-    setIsMergedFilter(!isMergedFilter);
-    if(isMergedFilter) { setStateFilter('closed') };
+    setIsMergedFilter(event.target.checked);
+    if(!isMergedFilter) { setStateFilter('closed') };
   }
 
   const applyFilters = () => {
@@ -33,7 +32,7 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         'state': stateFilter,
         'isMerged': isMergedFilter,
     };
-
+    console.log(newFilters);
     setFilters(newFilters);
   }
 
@@ -51,7 +50,7 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
           })}
         </select><br />
         PR Status:
-        <select value={stateFilter} onChange={handleStatusFilterChange}>
+        <select disabled={isMergedFilter} value={stateFilter} onChange={handleStatusFilterChange}>
           {filterOptions.state.map((state) => {
               return (
                   <option key={state} value={state}>{state}</option>

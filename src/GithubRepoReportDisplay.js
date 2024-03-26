@@ -10,7 +10,7 @@ const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
           (pullRequestJson) => ( filters.state === 'all' ? true : pullRequestJson.state === filters.state )
         )
         .filter(
-          (pullRequestJson) => ( filters.isMerged === pullRequestJson.merged)
+          (pullRequestJson) => ( filters.isMerged === false ? true : filters.isMerged ===pullRequestJson.merged)
         );
 
 
