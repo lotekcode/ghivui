@@ -31,9 +31,3 @@ const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 export default GithubRepoReportDisplay;
 
 
-// return pullRequestJson.user.login === 'all' ? true : pullRequestJson.user.login === filters.user
-
-/*
-
-
-*/
