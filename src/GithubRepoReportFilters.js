@@ -32,7 +32,6 @@ const GithubRepoReportFilters = ({ filters, setFilters, filterOptions }) => {
         'state': stateFilter,
         'isMerged': isMergedFilter,
     };
-    console.log(newFilters);
     setFilters(newFilters);
   }
 
