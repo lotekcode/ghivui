@@ -1,6 +1,7 @@
 //import React, { useState, useEffect } from 'react';
 import GithubRepoReportDisplaySummary from "./GithubRepoReportDisplaySummary";
 import GithubRepoReportDisplayDetail from "./GithubRepoReportDisplayDetail";
+import { Row } from "react-bootstrap";
 
 const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
 
@@ -18,13 +19,13 @@ const GithubRepoReportDisplay = ({ pullRequestJsonArray, filters }) => {
   return ( 
     <div>
       <GithubRepoReportDisplaySummary filteredPullRequestJsonArray={filteredPullRequestJsonArray} user={filters.user} />
-      {
-        filteredPullRequestJsonArray.map( (filteredPullRequestJson) => {
-          return (
-            <GithubRepoReportDisplayDetail key={filteredPullRequestJson.id} filteredPullRequestJson={filteredPullRequestJson} />
-          )
-        })
-      }
+      <Row xs={1} md={5} className="g-4">
+        {filteredPullRequestJsonArray.map( (filteredPullRequestJson) => {
+            return (
+              <GithubRepoReportDisplayDetail key={filteredPullRequestJson.id} filteredPullRequestJson={filteredPullRequestJson} />
+            )
+        })}
+      </Row>
     </div>
   );
 }
