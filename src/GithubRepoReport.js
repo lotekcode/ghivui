@@ -23,11 +23,11 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 
   useEffect( () => {
     const headers = {
-      per_page: '100',
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        Authorization : 'Bearer ' + bearerToken, 
+      "per_page": 100,
+      "headers": {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Authorization" : `Bearer ${bearerToken}`, 
       }
     };
 
