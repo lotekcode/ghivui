@@ -23,7 +23,7 @@ const GithubRepoReport = ({ githubApiUrl }) => {
 
   useEffect( () => {
     const headers = {
-      per_page: 100,
+      per_page: '100',
       headers: {
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
@@ -85,7 +85,6 @@ export default GithubRepoReport;
 
 
 const fetchApiResponseJson = async (apiUrl, headers) => {
-  console.log(headers);
   const apiResponse = await fetch(apiUrl, headers);
   const apiResponseJson = await apiResponse.json();
   return apiResponseJson;
